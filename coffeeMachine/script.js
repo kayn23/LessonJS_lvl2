@@ -2,13 +2,13 @@ function CoffeMachine(power) {
     const Q = 4200;
     const maxTemp = 90;
 
-    let watterAmoun = 0;
+    let waterAmount = 0;
     let coffeeAmount = 0;
     let timerStart = 0;
 
-    this.setWatterAmount = (amount) => {
+    this.setWaterAmount = (amount) => {
         if (amount >= 50) {
-            watterAmoun = amount;
+            waterAmount = amount;
         } else {
             console.error('Мало воды.');
         }
@@ -23,15 +23,18 @@ function CoffeMachine(power) {
     }
 
     const timerWork = () => {
-        return (watterAmoun * Q * maxTemp) / power + (coffeeAmount*watterAmoun);
+        return (waterAmount * Q * maxTemp) / power + (coffeeAmount * waterAmount);
     }
 
-    this.launch =  () => {
-        timerStart = setTimeout(() => {
-            console.log('ваш кофе готов');
-        }, timerWork());
-        console.log(timerWork());
-        console.info(`ваш кофе будет готов через ${timerWork()/1000} секунд`);
+    this.launch = () => {
+        if (waterAmount == 0 || coffeeAmount == 0) {
+            console.error(`У вас пустая кофеварка, проверьте воду и кофе!`);
+        } else {
+            timerStart = setTimeout(() => {
+                console.log('ваш кофе готов');
+            }, timerWork());
+            console.info(`ваш кофе будет готов через ${timerWork()/1000} секунд`);
+        }
     }
 
     this.stop = () => {
@@ -41,6 +44,6 @@ function CoffeMachine(power) {
 }
 
 const vitek = new CoffeMachine(3000);
-vitek.setWatterAmount(100);
-vitek.setCoffeeAmount(50);
-vitek.launch();
+//vitek.setWaterAmount(100);
+//vitek.setCoffeeAmount(50);
+//vitek.launch();
