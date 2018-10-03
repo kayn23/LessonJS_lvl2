@@ -10,6 +10,15 @@
 
 <body>
     <div class="container">
+        <form class="col-12">
+            <label for="name">Name</label>
+            <input type="email" class="form-control" id="name" placeholder="Name">
+            <label for="age">age</label>
+            <input type="email" class="form-control" id="age" placeholder="Name">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+            <button class="btn btn-default">submit</button>
+        </form>
         <div class="row">
             <div class="col-sm-12 col-md-12">
                 <div class="thumbnail">
@@ -42,7 +51,7 @@
         fetch('http://89.108.65.123/user')
             .then((elem) => elem.json())
             .then((elemTwo) => {
-                console.log(elemTwo);
+                //                console.log(elemTwo);
                 createUserItem(elemTwo);
                 return elemTwo
             })
