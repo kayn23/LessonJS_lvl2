@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Последняя компиляция и сжатый CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Вывод списка</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>Name</td>
+                        <td>Email</td>
+                        <td>Age</td>
+                    </tr>
+                </thead>
+                <tbody class="list_group">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="modul">
+            <div class="body">
+                <table class="table">
+
+                </table>
+            </div>
+            <div class="footer">
+                <button class="btn btn-default modulBtn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script>
+        const domElem = document.querySelector('.list_group');
+        const createTd = (arg) => {
+            var elem = document.createElement('td');
+            elem.innerHTML= arg;
+            return elem;
+        }
+
+
+
+        const createUserItem = (arg) => {
+            for (var i = 0; i < arg.length; i++) {
+                var list = document.createElement('tr');
+                list.className = 'jsUser';
+                list.onclick = showUser;
+                var arr = arg[i];
+                list.appendChild(createTd(i+1));
+                for (var key in arr) {
+                    list.appendChild(createTd(arr[key]))
+                }
+                domElem.appendChild(list);
+
+            }
+        }
+
+        fetch('http://89.108.65.123/user')
+            .then((elem) => elem.json())
+            .then((elemTwo) => {
+                console.log(elemTwo);
+                createUserItem(elemTwo);
+                return elemTwo
+            })
+            .catch((error) => console.log(error));
+
+        function showUser (e) {
+
+            var TR = e.target.closest('tr');
+            var number = TR.querySelector('td').innerHTML;
+            var addres = 'http://89.108.65.123/user/' + number;
+            console.log(addres);
+            fetch(addres)
+                .then(elem => elem.json())
+                .then((elemTwo) => {
+                    createUserInfo(elemTwo);
+                    return elemTwo;
+                })
+                .catch((error) => {
+                    console.log(error);
+                    return error;
+                })
+        }
+
+        function createUserInfo (arg) {
+             $('.modul').show('slow');
+            var table = document.querySelector('.modul .table');
+            table.innerHTML = ''
+            for (var key in arg) {
+                var tr = document.createElement('tr');
+                var tdKey = document.createElement('td');
+                tdKey.innerHTML = key;
+                tr.appendChild(tdKey);
+                var tdValue = document.createElement('td');
+                tdValue.innerHTML = arg[key];
+                tr.appendChild(tdValue);
+                table.appendChild(tr);
+            }
+        }
+
+        $('.modulBtn').click(() => {
+            $('.modul').hide('slow');
+        })
+    </script>
+</body>
+
+</html>

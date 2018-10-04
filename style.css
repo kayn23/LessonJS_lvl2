@@ -1,0 +1,18 @@
+.modul {
+    display: none;
+    border: 1px solid #000;
+    border-radius: 20px;
+    width: 400px;
+    position: fixed;
+    left: 50%;
+    margin-left: -200px;
+    top: 100px;
+    background: #fff;
+    padding: 20px 20px 60px;
+}
+
+.modulBtn {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
