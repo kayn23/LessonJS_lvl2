@@ -11,14 +11,39 @@
     <div class="container">
         <form class="col-12">
             <label for="name">Name</label>
-            <input type="email" class="form-control" id="name" placeholder="Name">
+            <input type="text" class="form-control" id="name" placeholder="Name">
             <label for="age">age</label>
-            <input type="email" class="form-control" id="age" placeholder="Name">
+            <input type="text" class="form-control" id="age" placeholder="Name">
             <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-            <button class="btn btn-default">submit</button>
+            <input type="email" class="form-control" id="email" placeholder="Email">
         </form>
+        <button class="btn btn-default">submit</button>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+    <script>
+
+        function Users (name, email, age) {
+            this.name = name;
+            this.email = email;
+            this.age = age;
+        }
+
+        document.querySelector('button').onclick = (e) => {
+            let a = new Array;
+            a[0] = document.querySelector('#name').value;
+            a[1] = document.querySelector('#email').value;
+            a[2] = document.querySelector('#age').value;
+
+            let myUser = new Users(a[0],a[1],a[2]);
+            console.log(myUser);
+
+        }
+
+    </script>
 </body>
 
 </html>
