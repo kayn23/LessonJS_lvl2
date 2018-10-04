@@ -4,49 +4,87 @@
 <head>
     <meta charset="UTF-8">
     <!-- Последняя компиляция и сжатый CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
     <title>Вывод списка</title>
 </head>
 
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 col-md-12">
-                <div class="thumbnail">
-                    <div class="caption">
-                        <h3>Список пользователей</h3>
-                        <p id="listUser">
-                            <ul class="list-group">
-                            </ul>
-                        </p>
-                    </div>
-                </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>Name</td>
+                        <td>Email</td>
+                        <td>Age</td>
+                    </tr>
+                </thead>
+                <tbody class="list_group">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+
             </div>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script>
-        const domElem = document.querySelector('.list-group');
+        const domElem = document.querySelector('.list_group');
+        const createTd = (arg) => {
+            var elem = document.createElement('td');
+            elem.innerHTML= arg;
+            return elem;
+        }
 
         const createUserItem = (arg) => {
-
             for (var i = 0; i < arg.length; i++) {
-                var list = document.createElement('button');
-                var string = 0;
-                list.className = 'list-group-item';
-                list.type = 'button';
-                list.innerHTML = `name: ${arg[i].name},     mail: ${arg[i].email},     age: ${arg[i].age}.`;
+                var list = document.createElement('tr');
+                list.className = 'jsUser';
+                list.onclick = showUser;
+                var arr = arg[i];
+                list.appendChild(createTd(i));
+                for (var key in arr) {
+                    list.appendChild(createTd(arr[key]))
+                }
                 domElem.appendChild(list);
+
             }
         }
 
         fetch('http://89.108.65.123/user')
             .then((elem) => elem.json())
             .then((elemTwo) => {
-                //                console.log(elemTwo);
+                console.log(elemTwo);
                 createUserItem(elemTwo);
                 return elemTwo
             })
             .catch((error) => console.log(error));
+
+        function showUser (e) {
+            var TR = e.target.closest('tr');
+            var number = TR.querySelector('td').innerHTML;
+            console.log('http://89.108.65.123/user/' + number);
+            fetch('http://89.168.65.123/user/1')
+                .then(elem => elem.json())
+                .then((elemTwo) => {
+                    console.log(elemTwo);
+                    return elemTwo;
+                })
+                .catch((error) => {
+                    console.log(error);
+                    return error;
+                })
+        }
 
     </script>
 </body>
