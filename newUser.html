@@ -39,8 +39,23 @@
             a[2] = document.querySelector('#age').value;
 
             let myUser = new Users(a[0],a[1],a[2]);
-            console.log(myUser);
+            send(myUser);
+        }
 
+        function send (arg) {
+            let jsonUser = JSON.stringify(arg);
+
+            fetch('http://89.108.65.123/user', {
+                method: 'POST',
+                body: jsonUser
+            })
+            .then(elem => elem.text())
+            .then(elemTwo => {
+                console.log(elemTwo);
+            })
+            .catch(error => {
+                console.log(error);
+            })
         }
 
     </script>
