@@ -13,7 +13,7 @@
     <form class="form-inline">
         <div class="form-group">
             <label class="sr-only" for="name">Name</label>
-            <input type="text" class="form-control" id="name" placeholder="name" pattern="\D+">
+            <input type="text" class="form-control" id="name" placeholder="name">
         </div>
         <div class="form-group">
             <label class="sr-only" for="phone">phone</label>
@@ -27,11 +27,19 @@
     </form>
 </div>
 <script>
-    // const check = document.querySelector('.form-inline');
-    // const name = check.querySelector("#name");
-    // name.oninput = function () {
-    //     console.log(/[a-zA-ZА-ЯЁа-яЁ]+/gm.test(name.value));
-    // }
+    //pattern="\D+"
+    const check = document.querySelector('.form-inline');
+    const name = check.querySelector("#name");
+    name.oninput = function () {
+        if (!(name.value.match(/\D+/) >= null)) {
+            // console.log(true)
+            if (name.value.match(/\D+/)[0].length == name.value.length) {
+                console.log(`true`);
+            } else {
+                console.log(`false`);
+            }
+        }
+    }
 </script>
 
 <body>
