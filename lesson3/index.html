@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>lesson3_1</title>
+</head>
+
+<body>
+    <p class="js_text">
+        Lorem ipsum's dolor sit amet consectetur adipisicing elit. Voluptatem obcaecati unde eaque, quos accusantium
+        at, velit optio's maiores, cumque voluptates aperiam itaque! 'Dicta consequatur modi doloribus, porro odio
+        suscipit maxime, beatae natus temporibus eligendi earum ipsa voluptate incidunt voluptatum!' Culpa adipisci
+        iste ea voluptatum quod officiis ab officia voluptas. Ut nostrum repellat voluptate nam fugit voluptatibus eum,
+        voluptas tempore, est numquam neque laudantium dolorem? Officiis eaque cumque enim's, iusto officia,
+        exercitationem corporis eveniet a labore autem accusantium, quis excepturi. 'Quod, nihil assumenda's quam, et
+        dolorem fuga atque culpa corporis deleniti sint architecto eius incidunt, nostrum necessitatibus!' Reiciendis
+        debitis atque praesentium quisquam numquam, unde assumenda illum voluptatibus eum natus 'vero esse et ullam
+        quis' voluptate repellendus dolor facilis amet perspiciatis nemo placeat suscipit nostrum deleniti. Animi ex ut
+        fugit dolores rem, est ullam et odio qui hic quod sed molestias necessitatibus praesentium rerum minima unde
+        voluptatibus consequuntur. Pariatur, eveniet reiciendis. Iure?
+    </p>
+    <script>
+        const textDOM = document.querySelector('.js_text');
+        let text = textDOM.innerHTML;
+        textDOM.innerHTML = text.replace(/\'(?=\s)|\'(?<=\s\')/gm,'"');
+
+    </script>
+</body>
+
+</html>
