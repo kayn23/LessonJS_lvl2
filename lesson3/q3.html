@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css"
+        crossorigin="anonymous">
+    <title>Задание 3</title>
+</head>
+<div class="container">
+    <form class="form-inline">
+        <div class="form-group">
+            <label class="sr-only" for="name">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="name" pattern="[a-zа-яё]*">
+        </div>
+        <div class="form-group">
+            <label class="sr-only" for="phone">phone</label>
+            <input type="text" class="form-control" id="phone" placeholder="phone" pattern="\+7\(\d+\)\d+-\d+">
+        </div>
+        <div class="form-group">
+            <label class="sr-only" for="email">email</label>
+            <input type="text" class="form-control" id="email" placeholder="email" pattern="\w.+@.+\..+" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign in</button>
+    </form>
+</div>
+<script>
+    // const check = document.querySelector('.form-inline');
+    // const name = check.querySelector("#name");
+    // name.oninput = function () {
+    //     console.log(/[a-zA-ZА-ЯЁа-яЁ]+/gm.test(name.value));
+    // }
+</script>
+
+<body>
+
+</body>
+
+</html>
