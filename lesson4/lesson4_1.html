@@ -5,12 +5,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .tab {
+            box-sizing: content-box;
+            list-style-type: none;
+            float: left;
+            padding: 10px;
+            border-radius: 5px 5px 0 0;
+            background: #729b2f;
+            margin: 0 1px;
+            border-bottom: 1px solid #5a7a25;
+            margin-bottom: -1px;
+        }
+
+        .tab:hover {
+            cursor: pointer;
+            background: #5a7a25;
+        }
+
+        ul::after {
+            content: " ";
+            display: block;
+            clear: both;
+        }
+
+        .tabBlock {
+            width: 300px;
+            border-radius: 0 5px 5px 5px;
+            background: #bad38b;
+            border: 1px solid black;
+
+        }
+    </style>
     <title>lesson4 task1</title>
 </head>
 
 <body>
     <ul>
-        <li class="tab">item 1</li>
+        <li class="tab active">item 1</li>
         <li class="tab">item 2</li>
         <li class="tab">item 3</li>
     </ul>
@@ -36,7 +74,22 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
+        $('.tab').click(function () {
+            var index = $(this).index();
+            switchTab(index);
+        });
+        $(document).ready(function () {
+            var index = $('.tab').index('.active');
+            $('.tabBlock').hide();
+            $($('.tabBlock')[index]).show();
 
+        });
+        function switchTab(index) {
+            $('.active').removeClass('active');
+            $('.tabBlock').hide();
+            $($('.tab')[index]).addClass('active');
+            $($('.tabBlock')[index]).show();
+        }
     </script>
 </body>
 
