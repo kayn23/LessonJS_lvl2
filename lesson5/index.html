@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <title>Ajax</title>
+</head>
+
+<body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script>
+        let commentID = '';
+        const httpService = function () {
+            const BASE_URL = 'http://89.108.65.123:8080';
+
+            this.methods = {
+                GET: 'GET',
+                POST: 'POST',
+                DELETE: 'DELETE',
+                PATCH: 'PATCH'
+            }
+
+            this.request = async function(url = '/', method = 'GET', body) {
+                $.ajax({
+                    url: `${BASE_URL}${url}`,
+                    type: method,
+                    data: JSON.stringify(body),
+                    dataType: 'json',
+                    success: await function(data) {
+                        console.log(data);
+                    }
+                })
+            }
+        }
+
+        const $http = new httpService;
+
+        const getComments = async () => {
+            await $http.request('/comments');
+        }
+        const addComment = async (comment) => {
+            await $http.request(`/comments?text=${comment}`,$http.methods.POST);
+        }
+
+        const removeComment = async (comment_id) => {
+            await $http.request(`/comments?comment_id=${comment_id}`,$http.methods.DELETE);
+        }
+
+        const likeComment = async (comment_id) => {
+            await $http.request(`/comments?comment_id=${comment_id}`,$http.methods.PATCH);
+        }
+
+        getComments();
+    </script>
+</body>
+
+</html>
