@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .tab {
+            box-sizing: content-box;
+            list-style-type: none;
+            float: left;
+            padding: 10px;
+            border-radius: 5px 5px 0 0;
+            background: #729b2f;
+            margin: 0 1px;
+            border: 1px solid black;
+            
+            margin-bottom: -1px;
+        }
+
+        .tab:hover {
+            cursor: pointer;
+            background: #5a7a25;
+        }
+        
+        .active {
+            background: #bad38b;
+            border-bottom: 1px solid #bad38b;
+        }
+
+        ul::after {
+            content: " ";
+            display: block;
+            clear: both;
+        }
+
+        .tabBlock {
+            width: 300px;
+            border-radius: 0 5px 5px 5px;
+            background: #bad38b;
+            border: 1px solid black;
+
+        }
+    </style>
+    <title>lesson4 task1</title>
+</head>
+
+<body>
+    <ul>
+        <li class="tab active">item 1</li>
+        <li class="tab">item 2</li>
+        <li class="tab">item 3</li>
+    </ul>
+    <div class="tabBlock">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat mollitia distinctio est totam hic pariatur
+        voluptatem placeat, quam facere perferendis rerum voluptatum beatae qui vel cupiditate odio quibusdam nostrum
+        nisi doloremque ex dolores fugit autem? Ex maiores sunt laboriosam placeat mollitia suscipit facilis aspernatur
+        laudantium asperiores repudiandae corrupti harum sed odio, aliquid in aperiam deleniti! Non ea commodi
+        voluptatem illo consectetur quia recusandae velit nesciunt qui placeat consequuntur voluptatum maiores cumque
+        aliquid omnis, distinctio harum accusamus corrupti, officia cupiditate nobis assumenda! Eum perferendis eius
+        aspernatur, perspiciatis dicta, qui vel cum, ea culpa nostrum minus. Cumque neque dolores quaerat perferendis
+        ducimus.
+    </div>
+    <div class="tabBlock">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores dolores harum vitae ut illum vero dolorem
+        ad dolore ipsum sint consectetur facilis labore, et reiciendis beatae distinctio quas possimus nulla repellat
+        excepturi corporis totam impedit minus. Excepturi, cumque iure cum ad, recusandae corporis dolorum doloribus et
+        eveniet nihil sed quo.
+    </div>
+    <div class="tabBlock">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti quaerat architecto fuga laboriosam! Corporis
+        totam magnam impedit aliquam quos mollitia quia laborum enim vel necessitatibus!
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $('.tab').click(function () {
+            var index = $(this).index();
+            switchTab(index);
+        });
+        $(document).ready(function () {
+            var index = $('.tab').index('.active');
+            $('.tabBlock').hide();
+            $($('.tabBlock')[index]).show();
+
+        });
+        function switchTab(index) {
+            $('.active').removeClass('active');
+            $('.tabBlock').hide();
+            $($('.tab')[index]).addClass('active');
+            $($('.tabBlock')[index]).show();
+        }
+    </script>
+</body>
+
+</html>
