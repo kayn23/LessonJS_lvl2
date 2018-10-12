@@ -11,10 +11,34 @@
 </head>
 
 <body>
+    <div class="container mt-4">
+        <form id="js-form">
+            <div class="form-group">
+                <label for="comments">Введите комментарий</label>
+                <input type="text" class="form-control" id="comments">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary js-send">Добавить комментарий</button>
+            </div>
+        </form>
+
+        <div id="commentBlock">
+
+        </div>
+        <!-- <div class="card">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's content.</p>
+                <a href="#" class="card-link">like</a>
+                <a href="#" class="card-link">Удалить</a>
+            </div>
+        </div> -->
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script>
         let commentID = '';
+        let listComment = [];
         const httpService = function () {
             const BASE_URL = 'http://89.108.65.123:8080';
 
@@ -25,13 +49,15 @@
                 PATCH: 'PATCH'
             }
 
-            this.request = async function(url = '/', method = 'GET', body) {
+            this.request = function (url = '/', method = 'GET', body) {
                 $.ajax({
                     url: `${BASE_URL}${url}`,
                     type: method,
                     data: JSON.stringify(body),
                     dataType: 'json',
-                    success: await function(data) {
+                    async: false,
+                    success: function (data) {
+                        listComment = data;
                         console.log(data);
                     }
                 })
@@ -40,22 +66,84 @@
 
         const $http = new httpService;
 
-        const getComments = async () => {
-            await $http.request('/comments');
+        const getComments = () => {
+            $http.request('/comments');
+            console.log(listComment)
+            listComment.forEach(function (item) {
+                createComment(item);
+            })
         }
-        const addComment = async (comment) => {
-            await $http.request(`/comments?text=${comment}`,$http.methods.POST);
+        const addComment = (comment) => {
+            $http.request(`/comments?text=${comment}`, $http.methods.POST);
         }
-
-        const removeComment = async (comment_id) => {
-            await $http.request(`/comments?comment_id=${comment_id}`,$http.methods.DELETE);
+        const removeComment = (comment_id) => {
+            $http.request(`/comments?comment_id=${comment_id}`, $http.methods.DELETE);
         }
-
-        const likeComment = async (comment_id) => {
-            await $http.request(`/comments?comment_id=${comment_id}`,$http.methods.PATCH);
+        const likeComment = (comment_id) => {
+            $http.request(`/comments?comment_id=${comment_id}`, $http.methods.PATCH);
         }
 
         getComments();
+    
+        const $send = $('#js-form');  //форма=
+        const $inputComment = $('#comments'); //полле ввода комментария
+        var commentBlock = $('#commentBlock'); //блок куда добавляются таблички комментариев
+
+        function createComment(comment) {  //функция для создания блока комментария
+            let commentELem = $('<div/>', {
+                class: 'card',
+                data_id: comment.comment_id
+            });
+            let $commentBody = $('<div/>', {
+                class: 'card-body'
+            });
+            $('<h5/>', {
+                class: "card-title",
+                text: `Id комментария ${comment.comment_id}`
+            }).appendTo($commentBody);
+            $('<p/>', {
+                class: 'card-text',
+                text: comment.text
+            }).appendTo($commentBody);
+            $('<a/>', {
+                class: 'card-link likeComment',
+                href: '#',
+                text: `like ${comment.likes}`
+            }).appendTo($commentBody);
+            $('<a/>', {
+                class: 'card-link deleteComment',
+                href: '#',
+                text: `удалить`
+            }).appendTo($commentBody);
+            $commentBody.appendTo(commentELem);
+            commentELem.appendTo('#commentBlock');
+        }
+
+/*
+лайк комментария
+*/
+        $('.likeComment').click(function(e){
+            e.preventDefault();
+            const idComment = $(e.target).parents('.card').attr('data_id');
+            likeComment(idComment);
+            e.target.innerHTML = `like ${listComment.likes}`;
+        });
+
+/*
+удаление комментария
+*/
+        $('.deleteComment').click(function(e){
+            e.preventDefault();
+            const idComment = $(e.target).parents('.card').attr('data_id');
+            removeComment(idComment);
+            $(e.target).parents('.card').remove();
+        })
+
+        $send.submit( function (e) {
+            e.preventDefault();
+            addComment($inputComment.val());
+            createComment(listComment);
+        });
     </script>
 </body>
 
