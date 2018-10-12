@@ -58,7 +58,7 @@
                     async: false,
                     success: function (data) {
                         listComment = data;
-                        console.log(data);
+                        // console.log(data);
                     }
                 })
             }
@@ -68,7 +68,7 @@
 
         const getComments = () => {
             $http.request('/comments');
-            console.log(listComment)
+            // console.log(listComment)
             listComment.forEach(function (item) {
                 createComment(item);
             })
