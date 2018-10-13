@@ -135,7 +135,7 @@
         */
         function checkMessage(message) {
             if (message.length > 1) {
-                return message.match(/(?!\s)\D*/);
+                return message.match(/(?!\s)[a-zA-Zа-яёА-ЯЁ1-9 .?!\/\(\)\"\']*/);
             } else {
                 return false
             }
@@ -143,28 +143,29 @@
         /*
         лайк комментария
         */
-        $('.likeComment').click(function (e) {
-            e.preventDefault();
-            const idComment = $(e.target).parents('.card').attr('data_id');
-            likeComment(idComment);
-            e.target.innerHTML = `like ${listComment.likes}`;
-        });
+        // $('.likeComment').click(function (e) {
+        //     e.preventDefault();
+        //     const idComment = $(e.target).parents('.card').attr('data_id');
+        //     likeComment(idComment);
+        //     e.target.innerHTML = `like ${listComment.likes}`;
+        // });
 
         /*
         удаление комментария
         */
-        $('.deleteComment').click(function (e) {
-            e.preventDefault();
-            const idComment = $(e.target).parents('.card').attr('data_id');
-            removeComment(idComment);
-            $(e.target).parents('.card').remove();
-        })
+        // $('.deleteComment').click(function (e) {
+        //     e.preventDefault();
+        //     const idComment = $(e.target).parents('.card').attr('data_id');
+        //     removeComment(idComment);
+        //     $(e.target).parents('.card').remove();
+        // })
         /*
         отправка комменария
         */
         $send.submit(function (e) {
             e.preventDefault();
             let message = checkMessage($inputComment.val());
+            $inputComment.val('')
             if (message != false) {
                 addComment(message);
             } else {
