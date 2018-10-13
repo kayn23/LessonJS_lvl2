@@ -108,12 +108,24 @@
             $('<a/>', {
                 class: 'card-link likeComment',
                 href: '#',
-                text: `like ${comment.likes}`
+                text: `like ${comment.likes}`,
+                click: function (e) {
+                    e.preventDefault();
+                    const idComment = $(e.target).parents('.card').attr('data_id');
+                    likeComment(idComment);
+                    e.target.innerHTML = `like ${listComment.likes}`;
+                }
             }).appendTo($commentBody);
             $('<a/>', {
                 class: 'card-link deleteComment',
                 href: '#',
-                text: `удалить`
+                text: `удалить`,
+                click: function (e) {
+                    e.preventDefault();
+                    const idComment = $(e.target).parents('.card').attr('data_id');
+                    removeComment(idComment);
+                    $(e.target).parents('.card').remove();
+                }
             }).appendTo($commentBody);
             $commentBody.appendTo(commentELem);
             commentELem.appendTo('#commentBlock');
