@@ -84,7 +84,7 @@
         }
 
         getComments();
-    
+
         const $send = $('#js-form');  //форма=
         const $inputComment = $('#comments'); //полле ввода комментария
         var commentBlock = $('#commentBlock'); //блок куда добавляются таблички комментариев
@@ -118,30 +118,47 @@
             $commentBody.appendTo(commentELem);
             commentELem.appendTo('#commentBlock');
         }
-
-/*
-лайк комментария
-*/
-        $('.likeComment').click(function(e){
+        /*
+        проверка сообщения, чтобы вначале небыло пробела
+        */
+        function checkMessage(message) {
+            if (message.length > 1) {
+                return message.match(/(?!\s)\D*/);
+            } else {
+                return false
+            }
+        }
+        /*
+        лайк комментария
+        */
+        $('.likeComment').click(function (e) {
             e.preventDefault();
             const idComment = $(e.target).parents('.card').attr('data_id');
             likeComment(idComment);
             e.target.innerHTML = `like ${listComment.likes}`;
         });
 
-/*
-удаление комментария
-*/
-        $('.deleteComment').click(function(e){
+        /*
+        удаление комментария
+        */
+        $('.deleteComment').click(function (e) {
             e.preventDefault();
             const idComment = $(e.target).parents('.card').attr('data_id');
             removeComment(idComment);
             $(e.target).parents('.card').remove();
         })
-
-        $send.submit( function (e) {
+        /*
+        отправка комменария
+        */
+        $send.submit(function (e) {
             e.preventDefault();
-            addComment($inputComment.val());
+            let message = checkMessage($inputComment.val());
+            if (message != false) {
+                addComment(message);
+            } else {
+                alert('Введите корректный комментарий')
+                return false;
+            }
             createComment(listComment);
         });
     </script>
