@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <title>Комментарии ajax</title>
+</head>
+
+<body>
+    <div class="container mt-4">
+        <form id="js-form">
+            <div class="form-group">
+                <label for="comments">Введите комментарий</label>
+                <input type="text" class="form-control" id="comments" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary js-send">Добавить комментарий</button>
+            </div>
+        </form>
+
+        <div id="commentBlock">
+
+        </div>
+        <!-- <div class="card">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's content.</p>
+                <a href="#" class="card-link">like</a>
+                <a href="#" class="card-link">Удалить</a>
+            </div>
+        </div> -->
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script>
+        let commentID = '';
+        let listComment = [];
+        const httpService = function () {
+            const BASE_URL = 'http://89.108.65.123:8080';
+
+            this.methods = {
+                GET: 'GET',
+                POST: 'POST',
+                DELETE: 'DELETE',
+                PATCH: 'PATCH'
+            }
+
+            this.request = function (url = '/', method = 'GET', body) {
+                $.ajax({
+                    url: `${BASE_URL}${url}`,
+                    type: method,
+                    data: JSON.stringify(body),
+                    dataType: 'json',
+                    async: false,
+                    success: function (data) {
+                        listComment = data;
+                        // console.log(data);
+                    }
+                })
+            }
+        }
+
+        const $http = new httpService;
+
+        const getComments = () => {
+            $http.request('/comments');
+            // console.log(listComment)
+            listComment.forEach(function (item) {
+                createComment(item);
+            })
+        }
+        const addComment = (comment) => {
+            $http.request(`/comments?text=${comment}`, $http.methods.POST);
+        }
+        const removeComment = (comment_id) => {
+            $http.request(`/comments?comment_id=${comment_id}`, $http.methods.DELETE);
+        }
+        const likeComment = (comment_id) => {
+            $http.request(`/comments?comment_id=${comment_id}`, $http.methods.PATCH);
+        }
+
+        getComments();
+
+        const $send = $('#js-form');  //форма=
+        const $inputComment = $('#comments'); //полле ввода комментария
+        var commentBlock = $('#commentBlock'); //блок куда добавляются таблички комментариев
+
+        function createComment(comment) {  //функция для создания блока комментария
+            let commentELem = $('<div/>', {
+                class: 'card mt-2',
+                data_id: comment.comment_id
+            });
+            let $commentBody = $('<div/>', {
+                class: 'card-body'
+            });
+            $('<h5/>', {
+                class: "card-title",
+                text: `Id комментария ${comment.comment_id}`
+            }).appendTo($commentBody);
+            $('<p/>', {
+                class: 'card-text',
+                text: comment.text
+            }).appendTo($commentBody);
+            $('<a/>', {
+                class: 'card-link likeComment',
+                href: '#',
+                text: `like ${comment.likes}`,
+                click: function (e) {
+                    e.preventDefault();
+                    const idComment = $(e.target).parents('.card').attr('data_id');
+                    likeComment(idComment);
+                    e.target.innerHTML = `like ${listComment.likes}`;
+                }
+            }).appendTo($commentBody);
+            $('<a/>', {
+                class: 'card-link deleteComment',
+                href: '#',
+                text: `удалить`,
+                click: function (e) {
+                    e.preventDefault();
+                    const idComment = $(e.target).parents('.card').attr('data_id');
+                    removeComment(idComment);
+                    $(e.target).parents('.card').remove();
+                }
+            }).appendTo($commentBody);
+            $commentBody.appendTo(commentELem);
+            commentELem.appendTo('#commentBlock');
+        }
+        /*
+        проверка сообщения, чтобы вначале небыло пробела
+        */
+        function checkMessage(message) {
+            if (message.length > 1) {
+                return message.match(/(?!\s)[a-zA-Zа-яёА-ЯЁ1-9 .?!\/\(\)\"\']*/);
+            } else {
+                return false
+            }
+        }
+        /*
+        лайк комментария
+        */
+        // $('.likeComment').click(function (e) {
+        //     e.preventDefault();
+        //     const idComment = $(e.target).parents('.card').attr('data_id');
+        //     likeComment(idComment);
+        //     e.target.innerHTML = `like ${listComment.likes}`;
+        // });
+
+        /*
+        удаление комментария
+        */
+        // $('.deleteComment').click(function (e) {
+        //     e.preventDefault();
+        //     const idComment = $(e.target).parents('.card').attr('data_id');
+        //     removeComment(idComment);
+        //     $(e.target).parents('.card').remove();
+        // })
+        /*
+        отправка комменария
+        */
+        $send.submit(function (e) {
+            e.preventDefault();
+            let message = checkMessage($inputComment.val());
+            $inputComment.val('')
+            if (message != false) {
+                addComment(message);
+            } else {
+                alert('Введите корректный комментарий')
+                return false;
+            }
+            createComment(listComment);
+        });
+    </script>
+</body>
+
+</html>

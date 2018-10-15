@@ -5,30 +5,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
     <title>ajax</title>
 </head>
-<input type="text" id="city">
 
 <body>
-
+    <label for="city"></label>
+    <input type="text" id="city" list="cityList">
+    <datalist id="cityList">
+    </datalist>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
     <script>
         let city = [];
         let i;
+        let newArr = [];
         $.ajax({
             url: "http://89.108.65.123/cities",
             dataType: "json",
-            success: (data, text) => {
-                for (i in data) {
-                    city.push(data[i].name);
-                }
+            async: false,
+            success: (data) => {
+                city = data;
             }
         });
-        $('#city').autocomplete({
-            source: city
-        })
+        function createOption(name) {
+            $('<option />',{value: name}).appendTo('#cityList')
+        }
+
+        // city.forEach((item,i) => {
+        //     // if (i<10) {
+        //     //     console.log(item)
+        //     // }
+        //     createOption(item.name)
+        // })
+        function clearList(){
+            document.querySelector('#cityList').innerHTML = '';
+        }
+        function createList(list){
+            list.forEach(element => {
+                createOption(element.name)
+            });
+        }
+
+        document.querySelector('#city').oninput = function(e){
+            let string =e.target.value;
+            if(string.length >= 3) {
+                const reg = RegExp('^'+string,'i');
+                console.log(reg);
+                newArr = city.filter((item) => {
+                    
+                    return reg.test(item.name);
+                })
+            }
+            clearList()
+            createList(newArr);
+        }
     </script>
 </body>
 
