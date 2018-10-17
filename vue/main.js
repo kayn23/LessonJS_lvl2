@@ -31,6 +31,11 @@ const addProducts = async (user,name,price) => {
     console.log(product);
     return product;
 }
+const deleteProduct = async (user,prodId) => {
+    const product = await $http.request(`/shop?user_id=${user}&product_id=${prodId}`,$http.method.DELETE);
+    // console.log(product)
+    return product.cart
+}
 
 var app = new Vue({
     el: '#cards',
@@ -60,7 +65,13 @@ var app = new Vue({
             this.card.push(await addProducts(this.userId,this.nameProduct,this.priceProduct))
         },
         deleteProduct: async function(e) {
-            console.log(e.target.closest('.card-body'))
+            const productId = e.target.closest('.card-body').id
+            const card = await deleteProduct(this.userId, productId)
+            // console.log(card);
+            this.card = card
         }
     }
 })
+
+
+//тестовый пользователь _26jf0k6ca
