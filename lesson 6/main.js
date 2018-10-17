@@ -26,7 +26,19 @@ $('#myForm').validate({
             email: 'Введите почту корректно. Пример: example@mail.ru'
         }
     },
-    errorClass: "myForm__error"
+    errorClass: "myForm__error",
+    submitHandler: function () {
+        $('#myForm input').each(function () {
+            var elem = $(this);
+            if (elem.val().length > 0) {
+                var string = `${elem.attr('placeholder')}: ${elem.val()}`;
+                $('<p>', {
+                    text: string
+                }).appendTo('#dialog');
+            }
+        })
+        $('#dialog').dialog('open');
+    }
 });
 
 /*
@@ -65,9 +77,25 @@ document.querySelector('#myForm__city').oninput = function (e) {
     clearList()
     createList(newCityList);
 }
- /*
+/*
  
- */
+*/
+$(function () {
+    $("#dialog").dialog({
+        autoOpen: false,
+        show: {
+            effect: "blind",
+            duration: 200
+        },
+        hide: {
+            effect: "explode",
+            duration: 200
+        },
+        beforeClose: function (event, ui) {
+            $(this).html('');
+        }
+    });
+})
 $('#myForm').on('submit', function (e) {
     e.preventDefault();
 });
