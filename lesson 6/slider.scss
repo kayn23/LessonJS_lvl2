@@ -1,0 +1,92 @@
+@import '_setting.scss';
+.slider {
+    color: $liteText;
+    font-weight: 300;
+    text-align: center;
+    &__preview {
+      position: relative;
+    }
+    &__slide {
+      background-position: center center;
+      &_posTopSlider {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+    }
+  
+    &__img {
+      display: none;
+    }
+  
+    &__slide {
+      height: 800px;
+    }
+  
+    &__caption {
+      font-size: 62px;
+      &_accent {
+        font-weight: 700;
+      }
+      &_posTopSlider {
+          margin-bottom: 20px;
+      }
+    }
+  }
+  
+  .mainSlider {
+    &__caption {
+      font-size: 48px;
+      &_accent {
+        color: $colorTextHead;
+      }
+      &_posTopSlider{
+          margin-bottom: 20px
+      }
+    }
+    &__text {
+      font-size: 18px;
+      
+    }
+  
+    &_posTopSlider {
+      max-width: 700px;
+      margin: 0 auto 120px;
+    }
+  }
+  
+  
+  
+  .swiper-pagination {
+      margin-bottom: 40px
+  }
+  
+  .swiper-pagination-bullet {
+    border: 2px solid #fff;
+    opacity: 1;
+    background: none;
+    margin: 0 7px !important;
+  }
+  
+  .swiper-pagination-bullet-active {
+    background: #fff;
+  }
+  //немного адаптив в слайдер
+  @media (max-width: 576px) {
+    .slider {
+      &__caption{
+        font-size: 48px;
+      }
+    }
+    .mainSlider {
+      &__caption {
+        font-size: 32px;
+      }
+      &__text {
+        font-size: 18px;
+      }
+      &_posTopSlider {
+        margin: 0 10px 120px;
+      }
+    }
+  }
