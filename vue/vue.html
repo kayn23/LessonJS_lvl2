@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <title>Vue.js</title>
+</head>
+
+<body>
+    <div class="container mt-2">
+        <h1>Магазин</h1>
+        <!-- <form>
+            <div class="form-group">
+                <label for="productName">Название товара</label>
+                <input type="text" class="form-control" id="productName">
+            </div>
+            <div class="form-group">
+                <label for="productPrice">Цена</label>
+                <input type="number" class="form-control" id="productPrice">
+            </div>
+            <button type="submit" class="btn btn-primary">Добавить</button>
+        </form> -->
+        <div id="cards" class="mt-4">
+            <form>
+                <div class="form-group" v-if="seeUser">
+                    <label for="userId">user</label>
+                    <input type="text" class="form-control" id="userId" v-model="userId">
+                </div>
+            </form>
+            <form v-if="seeAdd" v-on:submit.prevent="addProduct">
+                <div class="form-group">
+                    <label for="productName">Название товара</label>
+                    <input type="text" class="form-control" id="productName" v-model="nameProduct">
+                </div>
+                <div class="form-group">
+                    <label for="productPrice">Цена</label>
+                    <input type="number" class="form-control" id="productPrice" v-model="priceProduct">
+                </div>
+                <button type="submit" class="btn btn-primary">Добавить</button>
+            </form>
+            <button @click="getUser()" class="btn btn-primary" v-if="seeUser">получить юзера</button>
+            <h3 class="mt-2">id user = {{userId}}</h3>
+            <div class="basket mt-2" v-for="item in card">
+                <div class="card">
+                    <div class="card-body" :id="item.product_id">
+                        <h3 class="card-caprion">{{item.product}}</h3>
+                        <p class="card-text">Price: {{item.price}}.</p>
+                        <a href="#" @click="deleteProduct" class="card-link">Удалить</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="vue.min.js"></script>
+        <script src="main.js"></script>
+</body>
+
+</html>
