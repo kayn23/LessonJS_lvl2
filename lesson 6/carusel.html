@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/css/swiper.min.css">
+    <link rel="stylesheet" href="slider.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="swiper-container slider">
+        <div class="swiper-wrapper slider__preview">
+            <div class="swiper-slide slider__slide slider__slide_posTopSlider js_slide" style="background-image: url(slide1.jpg)">
+                <div class="slider__caption slider__caption_posTopSlider">
+                    Meet <span class="slider__caption_accent">Brandi</span>!
+                </div>
+                <div class="mainSlider mainSlider_posTopSlider">
+                    <div class="mainSlider__caption mainSlider__caption_posTopSlider">
+                        <span class="mainSlider__caption_accent">/creative</span> one page template.
+                    </div>
+                    <div class="mainSlider__text">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis dolorem mollitia dignissimos
+                        tempora natus ullam!
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide slider__slide slider__slide_posTopSlider js_slide" style="background-image: url(slide1.jpg)">
+                <div class="slider__caption slider__caption_posTopSlider">
+                    <span class="slider__caption_accent">Lorem</span>, ipsum!
+                </div>
+                <div class="mainSlider mainSlider_posTopSlider">
+                    <div class="mainSlider__caption mainSlider__caption_posTopSlider">
+                        <span class="mainSlider__caption_accent">/creative</span> one page template.
+                    </div>
+                    <div class="mainSlider__text">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis dolorem mollitia dignissimos
+                        tempora natus ullam!
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide slider__slide slider__slide_posTopSlider js_slide" style="background-image: url(slide1.jpg)">
+                <div class="slider__caption slider__caption_posTopSlider">
+                    Lorem,<span class="slider__caption_accent"> ipsum</span> dolor.
+                </div>
+                <div class="mainSlider mainSlider_posTopSlider">
+                    <div class="mainSlider__caption mainSlider__caption_posTopSlider">
+                        <span class="mainSlider__caption_accent">/creative</span> one page template.
+                    </div>
+                    <div class="mainSlider__text">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-pagination">
+        </div>
+        <script src="lib/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/js/swiper.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                /*---------
+                Инициализация слайдера
+                ---------*/
+                var mySwiper = new Swiper('.swiper-container', {
+                    slidesPerView: 1,
+                    loop: true,
+                    speed: 500,
+                    autoplay: {
+                        delay: 3000,
+                        disableOnInteraction: false,
+                    },
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    }
+                });
+            })
+        </script>
+</body>
+
+</html>
