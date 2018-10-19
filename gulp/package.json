@@ -1,0 +1,19 @@
+{
+  "name": "gulp_lesson",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kayn23",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.4.0",
+    "gulp-clean-css": "^3.10.0",
+    "gulp-if": "^2.0.2",
+    "gulp-useref": "^3.1.5",
+    "gulp-wiredep": "^1.2.0"
+  }
+}
