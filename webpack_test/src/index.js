@@ -1,3 +1,3 @@
-import multiply from './utils'
+import { multiply, avg } from './utils'
 
-console.log(multiply(2,4));
+console.log(avg(2,4,5));

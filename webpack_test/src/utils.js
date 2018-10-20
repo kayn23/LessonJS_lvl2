@@ -1,5 +1,11 @@
-const multiply = (a,b) => {
-    return a*b
+export const multiply = (... number) => {
+    return number.reduce((acc, item) => {
+        return acc * item
+    }, 1)
 }
 
-export default multiply
+export const avg = (... numbers) => {
+    return (multiply(... numbers) / numbers.length)
+}
+
+export default avg
