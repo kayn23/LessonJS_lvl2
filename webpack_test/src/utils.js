@@ -4,7 +4,7 @@ export const multiply = (... number) => {
     }, 1)
 }
 
-export const av.g = (... numbers) => {
+export const avg = (... numbers) => {
     return (multiply(... numbers) / numbers.length)
 }
 
