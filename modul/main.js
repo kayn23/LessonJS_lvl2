@@ -36,12 +36,11 @@ var Parser = function Parser() {
     if (item.length > 1) {
       
       a = item.map(function (item) {
-        var elem = new Tax(_this.parse(item, _this.regOldTax.regNameTax)[0], _this.parse(item, _this.regOldTax.regValueTax)[0], _this.parse(item, _this.regOldTax.regCurrencyTax)[0]);
+        var elem = new Tax(_this.parse(item, _this.regOldTax.regNameTax)[0], +_this.parse(item, _this.regOldTax.regValueTax)[0], _this.parse(item, _this.regOldTax.regCurrencyTax)[0]);
         return elem;
       });
     } else {
-      console.log(_this.parse(item[0], _this.regOldTax.regCurrencyTax)[0])
-      a = new Tax(_this.parse(item[0], _this.regOldTax.regNameTax)[0], _this.parse(item[0], _this.regOldTax.regValueTax)[0], _this.parse(item[0], _this.regOldTax.regCurrencyTax)[0]);
+      a = new Tax(_this.parse(item[0], _this.regOldTax.regNameTax)[0], +_this.parse(item[0], _this.regOldTax.regValueTax)[0], _this.parse(item[0], _this.regOldTax.regCurrencyTax)[0]);
     }
     return a
   };
@@ -56,7 +55,6 @@ var Parser = function Parser() {
   this.getNewTax = function (string) {
     var arrTax = [];
     arrTax = _this.parse(string, _this.regNewTax.newTax);
-    console.log(arrTax)
     arrTax = _this.createNewTax(arrTax);
     return arrTax;
   };

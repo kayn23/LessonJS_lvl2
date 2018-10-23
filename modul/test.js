@@ -24,11 +24,51 @@
 // });
 
 describe('текст получения новых значений', () => {
-// RUB     2148-YR   XT RUB 130-RI RUB 130-RI RUB 172-RI RUB RUB     7496-YQ   172-RI RUB 1469-CY RUB 120-JX RUB 264-JW
+// RUB     2148-YR   XT RUB 130-RI RUB 130-RI RUB 172-RI RUB      7496-YQ RUB  172-RI RUB 1469-CY RUB 120-JX RUB 264-JW
+       
     it('одно значение', () => {
         assert.isObject(parser.getNewTax('RUB     2148-YR'));
     });
     it('два значения', () => {
         assert.isArray(parser.getNewTax('RUB     2148-YR   XT RUB 130-RI'));
+    });
+});
+describe('проверка получаемых значений', () => {
+    var arrValue = [2148,130,130,172,7496,172,1469,120,264] 
+    function check(item,index) {
+        assert.isObject(item);
+        assert.isString(item.name);
+        assert.isString(item.currency);
+        assert.isNumber(item.value);
+        assert.equal(item.value, arrValue[index]);
+    };
+    it('проверка при посылке одного значения', () => {
+        var a = parser.getNewTax('RUB     2148-YR');
+        check(a,0)
+    });
+    it('два значения', () => {
+        var a = parser.getNewTax('RUB     2148-YR   XT RUB 130-RI');
+        for (var i = 0; i < a.length; i++) {
+            check(a[i],i)
+        }
+    });
+    it('3 значения', () => {
+        var a = parser.getNewTax('RUB     2148-YR   XT RUB 130-RI RUB 130-RI');
+        for (var i = 0; i < a.length; i++) {
+            check(a[i],i)
+        }
+    });
+    it('5 значения', () => {
+        var a = parser.getNewTax('RUB     2148-YR   XT RUB 130-RI RUB 130-RI RUB 172-RI RUB RUB     7496-YQ');
+        for (var i = 0; i < a.length; i++) {
+            check(a[i],i)
+        }
+    });
+    it('x значения', () => {
+        var a = parser.getNewTax('RUB     2148-YR   XT RUB 130-RI RUB 130-RI RUB 172-RI RUB     7496-YQ  RUB  172-RI RUB 1469-CY RUB 120-JX RUB 264-JW  ');
+        console.log(a)
+        for (var i = 0; i < a.length; i++) {
+            check(a[i],i)
+        }
     });
 });
