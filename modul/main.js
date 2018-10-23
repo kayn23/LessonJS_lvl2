@@ -17,7 +17,7 @@ var Parser = function Parser() {
 
   this.regOldTax = {
     regGeneralTax: /\D{2}\d{2}\s\D{3}\s+\w+/gmi,
-    regCurrencyTax: /(?<=.{5})[a-z]{3}/gmi,
+    regCurrencyTax: /(?<=.{5}|^)[a-z]{3}/gmi,
     regValueTax: /(?<=\s)[0-9]+/gmi,
     regNameTax: /\w{2}(?=$)/gmi
   };
@@ -26,6 +26,7 @@ var Parser = function Parser() {
   };
 
   this.parse = function (str, reg) {
+    // console.log(str)
     return str.match(reg);
   };
 
@@ -39,6 +40,7 @@ var Parser = function Parser() {
         return elem;
       });
     } else {
+      console.log(_this.parse(item[0], _this.regOldTax.regCurrencyTax)[0])
       a = new Tax(_this.parse(item[0], _this.regOldTax.regNameTax)[0], _this.parse(item[0], _this.regOldTax.regValueTax)[0], _this.parse(item[0], _this.regOldTax.regCurrencyTax)[0]);
     }
     return a
@@ -54,6 +56,7 @@ var Parser = function Parser() {
   this.getNewTax = function (string) {
     var arrTax = [];
     arrTax = _this.parse(string, _this.regNewTax.newTax);
+    console.log(arrTax)
     arrTax = _this.createNewTax(arrTax);
     return arrTax;
   };
