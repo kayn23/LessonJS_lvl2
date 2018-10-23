@@ -2,7 +2,7 @@
     создание карточки пользователя
 */
 function createCardUser(user) {
-    var block = $('<div/>', { class: 'card col-3', id: user.id });
+    var block = $('<div/>', { class: 'card col-3 mt-2', id: user.id });
     $('<div/>', {
         class: 'card-body',
         html: `<h5 class="card-title">${user.name}</h5>`
@@ -30,5 +30,6 @@ let listUser; //переменная для хранения списка пол
 async function getUsers() {
     listUser = await fetch('https://jsonplaceholder.typicode.com/users')
         .then(req => req.json());
+        listUser.forEach((item) => { createCardUser(item); })
 }
 getUsers();
