@@ -24,7 +24,7 @@
 // });
 
 describe('текст получения новых значений', () => {
-// RUB     2148-YR   XT RUB 130-RI RUB 130-RI RUB 172-RI RUB      7496-YQ RUB  172-RI RUB 1469-CY RUB 120-JX RUB 264-JW
+// RUB     2148-YR   XT RUB 130-RI RUB 130-RI RUB 172-RI RUB RUB     7496-YQ   172-RI RUB 1469-CY RUB 120-JX RUB 264-JW
        
     it('одно значение', () => {
         assert.isObject(parser.getNewTax('RUB     2148-YR'));
@@ -65,7 +65,7 @@ describe('проверка получаемых значений', () => {
         }
     });
     it('x значения', () => {
-        var a = parser.getNewTax('RUB     2148-YR   XT RUB 130-RI RUB 130-RI RUB 172-RI RUB     7496-YQ  RUB  172-RI RUB 1469-CY RUB 120-JX RUB 264-JW  ');
+        var a = parser.getNewTax('RUB     2148-YR   XT RUB 130-RI RUB 130-RI RUB 172-RI RUB RUB     7496-YQ   172-RI RUB 1469-CY RUB 120-JX RUB 264-JW');
         console.log(a)
         for (var i = 0; i < a.length; i++) {
             check(a[i],i)
