@@ -30,16 +30,23 @@ var Parser = function Parser() {
   };
 
   this.createNewTax = function (item) {
-    return item.map(function (item) {
-      var elem = new Tax(_this.parse(item, _this.regOldTax.regNameTax), _this.parse(item, _this.regOldTax.regValueTax), _this.parse(item, _this.regOldTax.regCurrencyTax));
-      return elem;
-    });
+    var a;
+    
+    if (item.length > 1) {
+      
+      a = item.map(function (item) {
+        var elem = new Tax(_this.parse(item, _this.regOldTax.regNameTax)[0], _this.parse(item, _this.regOldTax.regValueTax)[0], _this.parse(item, _this.regOldTax.regCurrencyTax)[0]);
+        return elem;
+      });
+    } else {
+      a = new Tax(_this.parse(item[0], _this.regOldTax.regNameTax)[0], _this.parse(item[0], _this.regOldTax.regValueTax)[0], _this.parse(item[0], _this.regOldTax.regCurrencyTax)[0]);
+    }
+    return a
   };
 
   this.getOldTax = function (string) {
     var arrTax = [];
     arrTax = _this.parse(string, _this.regOldTax.regGeneralTax);
-    console.log(arrTax);
     arrTax = _this.createNewTax(arrTax);
     return arrTax;
   };
